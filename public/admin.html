@@ -2312,6 +2312,7 @@
       const addServiceButtonText = document.getElementById(
         "add-service-button-text"
       );
+      let editServiceIndex = null;
 
       // Products Elements - NEW
       const productsList = document.getElementById("products-list");
@@ -2339,6 +2340,7 @@
       const addProductButtonText = document.getElementById(
         "add-product-button-text"
       );
+      let editProductIndex = null;
 
       // Blog Elements - NEW
       const blogPostsList = document.getElementById("blog-posts-list");
@@ -2358,6 +2360,7 @@
       const addBlogPostButtonText = document.getElementById(
         "add-blog-post-button-text"
       );
+      let editBlogPostIndex = null;
 
       // Links Elements
       const linksList = document.getElementById("links-list");
@@ -2368,6 +2371,7 @@
       const addLinkButton = document.getElementById("add-link-button");
       const addLinkLoading = document.getElementById("add-link-loading");
       const addLinkButtonText = document.getElementById("add-link-button-text");
+      let editLinkIndex = null;
 
       // Contact Info Elements
       const contactInfoList = document.getElementById("contact-info-list");
@@ -2389,6 +2393,7 @@
       const addContactInfoButtonText = document.getElementById(
         "add-contact-info-button-text"
       );
+      let editContactInfoIndex = null;
 
       // FAQ Elements
       const faqsList = document.getElementById("faqs-list");
@@ -2398,6 +2403,7 @@
       const addFaqButton = document.getElementById("add-faq-button");
       const addFaqLoading = document.getElementById("add-faq-loading");
       const addFaqButtonText = document.getElementById("add-faq-button-text");
+      let editFaqIndex = null;
 
       // Contact Elements
       const contactForm = document.getElementById("contact-form");
@@ -2916,11 +2922,17 @@
           const linkActions = document.createElement("div");
           linkActions.className = "link-actions";
 
+          const editButton = document.createElement("button");
+          editButton.className = "button secondary-button";
+          editButton.innerHTML = '<i class="fas fa-edit"></i>';
+          editButton.addEventListener("click", () => editLink(index));
+
           const deleteButton = document.createElement("button");
           deleteButton.className = "button danger-button";
           deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
           deleteButton.addEventListener("click", () => deleteLink(index));
 
+          linkActions.appendChild(editButton);
           linkActions.appendChild(deleteButton);
 
           linkItem.appendChild(linkInfo);
@@ -2976,11 +2988,17 @@
           const serviceActions = document.createElement("div");
           serviceActions.className = "service-actions";
 
+          const editButton = document.createElement("button");
+          editButton.className = "button secondary-button";
+          editButton.innerHTML = '<i class="fas fa-edit"></i>';
+          editButton.addEventListener("click", () => editService(index));
+
           const deleteButton = document.createElement("button");
           deleteButton.className = "button danger-button";
           deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
           deleteButton.addEventListener("click", () => deleteService(index));
 
+          serviceActions.appendChild(editButton);
           serviceActions.appendChild(deleteButton);
 
           serviceItem.appendChild(serviceInfo);
@@ -3050,11 +3068,17 @@
           const productActions = document.createElement("div");
           productActions.className = "product-actions";
 
+          const editButton = document.createElement("button");
+          editButton.className = "button secondary-button";
+          editButton.innerHTML = '<i class="fas fa-edit"></i>';
+          editButton.addEventListener("click", () => editProduct(index));
+
           const deleteButton = document.createElement("button");
           deleteButton.className = "button danger-button";
           deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
           deleteButton.addEventListener("click", () => deleteProduct(index));
 
+          productActions.appendChild(editButton);
           productActions.appendChild(deleteButton);
 
           productItem.appendChild(productInfo);
@@ -3124,11 +3148,17 @@
           const blogPostActions = document.createElement("div");
           blogPostActions.className = "blog-post-actions";
 
+          const editButton = document.createElement("button");
+          editButton.className = "button secondary-button";
+          editButton.innerHTML = '<i class="fas fa-edit"></i>';
+          editButton.addEventListener("click", () => editBlogPost(index));
+
           const deleteButton = document.createElement("button");
           deleteButton.className = "button danger-button";
           deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
           deleteButton.addEventListener("click", () => deleteBlogPost(index));
 
+          blogPostActions.appendChild(editButton);
           blogPostActions.appendChild(deleteButton);
 
           blogPostItem.appendChild(blogPostInfo);
@@ -3184,6 +3214,11 @@
           const contactInfoActions = document.createElement("div");
           contactInfoActions.className = "contact-info-actions";
 
+          const editButton = document.createElement("button");
+          editButton.className = "button secondary-button";
+          editButton.innerHTML = '<i class="fas fa-edit"></i>';
+          editButton.addEventListener("click", () => editContactInfo(index));
+
           const deleteButton = document.createElement("button");
           deleteButton.className = "button danger-button";
           deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
@@ -3191,6 +3226,7 @@
             deleteContactInfo(index)
           );
 
+          contactInfoActions.appendChild(editButton);
           contactInfoActions.appendChild(deleteButton);
 
           contactInfoItem.appendChild(contactInfoInfo);
@@ -3246,11 +3282,17 @@
           const faqActions = document.createElement("div");
           faqActions.className = "faq-actions";
 
+          const editButton = document.createElement("button");
+          editButton.className = "button secondary-button";
+          editButton.innerHTML = '<i class="fas fa-edit"></i>';
+          editButton.addEventListener("click", () => editFaq(index));
+
           const deleteButton = document.createElement("button");
           deleteButton.className = "button danger-button";
           deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
           deleteButton.addEventListener("click", () => deleteFaq(index));
 
+          faqActions.appendChild(editButton);
           faqActions.appendChild(deleteButton);
 
           faqItem.appendChild(faqInfo);
@@ -3336,6 +3378,15 @@
         }
       }
 
+      function editLink(index) {
+        const link = profileData.links[index];
+        linkTextInput.value = link.text;
+        linkUrlInput.value = link.url;
+        linkIconInput.value = link.icon;
+        editLinkIndex = index;
+        addLinkButtonText.textContent = "Update Link";
+      }
+
       // Delete service
       async function deleteService(index) {
         try {
@@ -3367,6 +3418,15 @@
           console.error("Error deleting service:", error);
           showNotification("error", "Error", "Failed to delete service");
         }
+      }
+
+      function editService(index) {
+        const service = profileData.services[index];
+        serviceTitleInput.value = service.title;
+        serviceDescriptionInput.value = service.description;
+        serviceIconInput.value = service.icon;
+        editServiceIndex = index;
+        addServiceButtonText.textContent = "Update Service";
       }
 
       // Delete product - NEW
@@ -3402,6 +3462,19 @@
         }
       }
 
+      function editProduct(index) {
+        const product = profileData.products[index];
+        productTitleInput.value = product.title;
+        productDescriptionInput.value = product.description;
+        productPriceInput.value = product.price;
+        productButtonTextInput.value = product.buttonText || "";
+        productUrlInput.value = product.url || "";
+        productIconInput.value = product.icon || "box";
+        productImagePreview.src = product.image || "/placeholder.svg";
+        editProductIndex = index;
+        addProductButtonText.textContent = "Update Product";
+      }
+
       // Delete blog post - NEW
       async function deleteBlogPost(index) {
         try {
@@ -3433,6 +3506,17 @@
           console.error("Error deleting blog post:", error);
           showNotification("error", "Error", "Failed to delete blog post");
         }
+      }
+
+      function editBlogPost(index) {
+        const post = profileData.blogPosts[index];
+        blogPostTitleInput.value = post.title;
+        blogPostDateInput.value = post.date;
+        blogPostExcerptInput.value = post.excerpt || "";
+        blogPostContentInput.value = post.content;
+        blogPostImagePreview.src = post.image || "/placeholder.svg";
+        editBlogPostIndex = index;
+        addBlogPostButtonText.textContent = "Update Blog Post";
       }
 
       // Delete contact info
@@ -3468,6 +3552,16 @@
         }
       }
 
+      function editContactInfo(index) {
+        const info = profileData.contactInfo[index];
+        contactInfoTitleInput.value = info.title;
+        contactInfoValueInput.value = info.value;
+        contactInfoTypeInput.value = info.type;
+        contactInfoIconInput.value = info.icon;
+        editContactInfoIndex = index;
+        addContactInfoButtonText.textContent = "Update Contact Info";
+      }
+
       // Delete FAQ
       async function deleteFaq(index) {
         try {
@@ -3495,6 +3589,14 @@
           console.error("Error deleting FAQ:", error);
           showNotification("error", "Error", "Failed to delete FAQ");
         }
+      }
+
+      function editFaq(index) {
+        const faq = profileData.faqs[index];
+        faqQuestionInput.value = faq.question;
+        faqAnswerInput.value = faq.answer;
+        editFaqIndex = index;
+        addFaqButtonText.textContent = "Update FAQ";
       }
 
       // Delete gallery image
@@ -3832,7 +3934,7 @@
         }
       });
 
-      // Add service form
+      // Add/Edit service form
       addServiceForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -3842,10 +3944,13 @@
           // Show loading state
           addServiceButton.disabled = true;
           addServiceLoading.classList.remove("hidden");
-          addServiceButtonText.textContent = "Adding...";
+          addServiceButtonText.textContent = editServiceIndex !== null ? "Updating..." : "Adding...";
 
-          const response = await fetch("/api/services", {
-            method: "POST",
+          const method = editServiceIndex !== null ? "PUT" : "POST";
+          const url = editServiceIndex !== null ? `/api/services/${editServiceIndex}` : "/api/services";
+
+          const response = await fetch(url, {
+            method,
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -3870,6 +3975,8 @@
           // Reset form
           serviceTitleInput.value = "";
           serviceDescriptionInput.value = "";
+          editServiceIndex = null;
+          addServiceButtonText.textContent = "Add Service";
 
           showNotification("success", "Success", "Service added successfully");
         } catch (error) {
@@ -3883,7 +3990,7 @@
         }
       });
 
-      // Add product form - NEW
+      // Add/Edit product form - NEW
       addProductForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -3893,7 +4000,7 @@
           // Show loading state
           addProductButton.disabled = true;
           addProductLoading.classList.remove("hidden");
-          addProductButtonText.textContent = "Adding...";
+          addProductButtonText.textContent = editProductIndex !== null ? "Updating..." : "Adding...";
 
           const formData = new FormData();
           formData.append("title", productTitleInput.value);
@@ -3916,8 +4023,11 @@
             formData.append("icon", productIconInput.value);
           }
 
-          const response = await fetch("/api/products", {
-            method: "POST",
+          const method = editProductIndex !== null ? "PUT" : "POST";
+          const url = editProductIndex !== null ? `/api/products/${editProductIndex}` : "/api/products";
+
+          const response = await fetch(url, {
+            method,
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -3943,6 +4053,8 @@
           productImageInput.value = "";
           productImagePreview.src = "/placeholder.svg";
           productIconInput.value = "box";
+          editProductIndex = null;
+          addProductButtonText.textContent = "Add Product";
 
           showNotification("success", "Success", "Product added successfully");
         } catch (error) {
@@ -3956,7 +4068,7 @@
         }
       });
 
-      // Add blog post form
+      // Add/Edit blog post form
       addBlogPostForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -3966,7 +4078,7 @@
           // Show loading state
           addBlogPostButton.disabled = true;
           addBlogPostLoading.classList.remove("hidden");
-          addBlogPostButtonText.textContent = "Adding...";
+          addBlogPostButtonText.textContent = editBlogPostIndex !== null ? "Updating..." : "Adding...";
 
           const formData = new FormData();
           formData.append("title", blogPostTitleInput.value);
@@ -3978,8 +4090,11 @@
             formData.append("image", blogPostImageInput.files[0]);
           }
 
-          const response = await fetch("/api/blogPosts", {
-            method: "POST",
+          const method = editBlogPostIndex !== null ? "PUT" : "POST";
+          const url = editBlogPostIndex !== null ? `/api/blogPosts/${editBlogPostIndex}` : "/api/blogPosts";
+
+          const response = await fetch(url, {
+            method,
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -4003,6 +4118,8 @@
           blogPostContentInput.value = "";
           blogPostImageInput.value = "";
           blogPostImagePreview.src = "/placeholder.svg";
+          editBlogPostIndex = null;
+          addBlogPostButtonText.textContent = "Add Blog Post";
 
           showNotification(
             "success",
@@ -4020,7 +4137,7 @@
         }
       });
 
-      // Add link form
+      // Add/Edit link form
       addLinkForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -4030,10 +4147,13 @@
           // Show loading state
           addLinkButton.disabled = true;
           addLinkLoading.classList.remove("hidden");
-          addLinkButtonText.textContent = "Adding...";
+          addLinkButtonText.textContent = editLinkIndex !== null ? "Updating..." : "Adding...";
 
-          const response = await fetch("/api/links", {
-            method: "POST",
+          const method = editLinkIndex !== null ? "PUT" : "POST";
+          const url = editLinkIndex !== null ? `/api/links/${editLinkIndex}` : "/api/links";
+
+          const response = await fetch(url, {
+            method,
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -4058,6 +4178,8 @@
           // Reset form
           linkTextInput.value = "";
           linkUrlInput.value = "";
+          editLinkIndex = null;
+          addLinkButtonText.textContent = "Add Link";
 
           showNotification("success", "Success", "Link added successfully");
         } catch (error) {
@@ -4071,7 +4193,7 @@
         }
       });
 
-      // Add contact info form
+      // Add/Edit contact info form
       addContactInfoForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -4081,10 +4203,13 @@
           // Show loading state
           addContactInfoButton.disabled = true;
           addContactInfoLoading.classList.remove("hidden");
-          addContactInfoButtonText.textContent = "Adding...";
+          addContactInfoButtonText.textContent = editContactInfoIndex !== null ? "Updating..." : "Adding...";
 
-          const response = await fetch("/api/contactInfo", {
-            method: "POST",
+          const method = editContactInfoIndex !== null ? "PUT" : "POST";
+          const url = editContactInfoIndex !== null ? `/api/contactInfo/${editContactInfoIndex}` : "/api/contactInfo";
+
+          const response = await fetch(url, {
+            method,
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -4110,6 +4235,8 @@
           // Reset form
           contactInfoTitleInput.value = "";
           contactInfoValueInput.value = "";
+          editContactInfoIndex = null;
+          addContactInfoButtonText.textContent = "Add Contact Info";
 
           showNotification(
             "success",
@@ -4127,7 +4254,7 @@
         }
       });
 
-      // Add FAQ form
+      // Add/Edit FAQ form
       addFaqForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -4137,10 +4264,13 @@
           // Show loading state
           addFaqButton.disabled = true;
           addFaqLoading.classList.remove("hidden");
-          addFaqButtonText.textContent = "Adding...";
+          addFaqButtonText.textContent = editFaqIndex !== null ? "Updating..." : "Adding...";
 
-          const response = await fetch("/api/faqs", {
-            method: "POST",
+          const method = editFaqIndex !== null ? "PUT" : "POST";
+          const url = editFaqIndex !== null ? `/api/faqs/${editFaqIndex}` : "/api/faqs";
+
+          const response = await fetch(url, {
+            method,
             headers: {
               Authorization: `Bearer ${token}`,
               "Content-Type": "application/json",
@@ -4164,6 +4294,8 @@
           // Reset form
           faqQuestionInput.value = "";
           faqAnswerInput.value = "";
+          editFaqIndex = null;
+          addFaqButtonText.textContent = "Add FAQ";
 
           showNotification("success", "Success", "FAQ added successfully");
         } catch (error) {
