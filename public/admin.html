@@ -2436,6 +2436,7 @@
       );
       let editBlogPostIndex = null;
 
+
       // Blocks Elements - NEW
       const blocksList = document.getElementById("blocks-list");
       const addBlockForm = document.getElementById("add-block-form");
@@ -2451,6 +2452,7 @@
       const addBlockLoading = document.getElementById("add-block-loading");
       const addBlockButtonText = document.getElementById("add-block-button-text");
       let editBlockIndex = null;
+
 
       // Links Elements
       const linksList = document.getElementById("links-list");
@@ -3755,6 +3757,7 @@
         addFaqButtonText.textContent = "Update FAQ";
       }
 
+
       function editBlock(index) {
         const block = profileData.blocks[index];
         blockTitleInput.value = block.title;
@@ -3795,6 +3798,7 @@
           showNotification("error", "Error", "Failed to delete block");
         }
       }
+
 
       // Delete gallery image
       async function deleteGalleryImage(index) {
@@ -4143,7 +4147,6 @@
           addServiceButton.disabled = true;
           addServiceLoading.classList.remove("hidden");
           addServiceButtonText.textContent = editServiceIndex !== null ? "Updating..." : "Adding...";
-
           const method = editServiceIndex !== null ? "PUT" : "POST";
           const url = editServiceIndex !== null ? `/api/services/${editServiceIndex}` : "/api/services";
 
