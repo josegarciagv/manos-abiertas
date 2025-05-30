@@ -206,7 +206,6 @@
       .color-input-container {
         display: flex;
         align-items: center;
-        gap: 1rem;
       }
 
       .color-preview {
@@ -215,13 +214,6 @@
         border-radius: 0.5rem;
         margin-right: 1rem;
         border: 1px solid var(--border-color);
-      }
-
-      #custom-colors-group {
-        padding: 1rem;
-        background-color: var(--secondary-bg);
-        border-radius: 0.5rem;
-        margin-top: 1rem;
       }
 
       .button {
@@ -851,16 +843,6 @@
           </li>
           <li class="sidebar-nav-item">
             <a
-              href="#blocks"
-              class="sidebar-nav-link"
-              data-section="blocks-section"
-            >
-              <i class="fas fa-th-large sidebar-nav-icon"></i>
-              <span class="sidebar-nav-text">Blocks</span>
-            </a>
-          </li>
-          <li class="sidebar-nav-item">
-            <a
               href="#services"
               class="sidebar-nav-link"
               data-section="services-section"
@@ -1076,11 +1058,7 @@
           </div>
         </section>
 
-
-        <!-- Blocks Section -->
-
         <!-- Blocks Section - NEW -->
-
         <section id="blocks-section" class="section hidden">
           <div class="card">
             <div class="card-header">
@@ -1091,55 +1069,11 @@
               <!-- Blocks will be loaded dynamically -->
             </div>
 
-
-            <!-- Enhanced Block Section Schema - Add this to your admin.html in the blocks section -->
-
             <div class="add-block-form">
               <h3 class="form-title">Add New Block</h3>
               <form id="add-block-form">
                 <div class="form-group">
                   <label for="block-title" class="form-label">Title</label>
-
-                  <input type="text" id="block-title" class="form-input" placeholder="Enter block title" required />
-                </div>
-
-                <div class="form-group">
-                  <label for="block-subtitle" class="form-label">Subtitle (Optional)</label>
-                  <input type="text" id="block-subtitle" class="form-input" placeholder="Enter block subtitle" />
-                </div>
-
-                <div class="form-group">
-                  <label for="block-text" class="form-label">Text</label>
-                  <textarea id="block-text" class="form-textarea" placeholder="Enter block text" required></textarea>
-                </div>
-
-                <!-- Layout Selection -->
-                <div class="form-group">
-                  <label for="block-layout" class="form-label">Layout Style</label>
-                  <select id="block-layout" class="form-select" required>
-                    <option value="two-column">Two Column (Text + Image)</option>
-                    <option value="centered">Centered Content</option>
-                    <option value="hero">Hero Section</option>
-                    <option value="card-grid">Card Grid</option>
-                    <option value="feature-highlight">Feature Highlight</option>
-                  </select>
-                </div>
-
-                <!-- Image Position (for two-column layout) -->
-                <div class="form-group" id="image-position-group">
-                  <label for="block-image-position" class="form-label">Image Position</label>
-                  <select id="block-image-position" class="form-select">
-                    <option value="right">Right</option>
-                    <option value="left">Left</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label for="block-button-text" class="form-label">Button Text (Optional)</label>
-                  <input type="text" id="block-button-text" class="form-input" placeholder="Enter button text" />
-                </div>
-
-
                   <input type="text" id="block-title" class="form-input" placeholder="Enter block title" />
                 </div>
                 <div class="form-group">
@@ -1150,65 +1084,10 @@
                   <label for="block-button-text" class="form-label">Button Text</label>
                   <input type="text" id="block-button-text" class="form-input" placeholder="Enter button text" />
                 </div>
-
                 <div class="form-group">
                   <label for="block-button-url" class="form-label">Button URL</label>
                   <input type="url" id="block-button-url" class="form-input" placeholder="Enter button URL" />
                 </div>
-
-
-                <!-- Button Style -->
-                <div class="form-group">
-                  <label for="block-button-style" class="form-label">Button Style</label>
-                  <select id="block-button-style" class="form-select">
-                    <option value="primary">Primary (Filled)</option>
-                    <option value="secondary">Secondary (Outlined)</option>
-                    <option value="ghost">Ghost (Text Only)</option>
-                  </select>
-                </div>
-
-                <!-- Color Scheme -->
-                <div class="form-group">
-                  <label for="block-color-scheme" class="form-label">Color Scheme</label>
-                  <select id="block-color-scheme" class="form-select">
-                    <option value="auto">Auto (Use Profile Colors)</option>
-                    <option value="light">Light Theme</option>
-                    <option value="dark">Dark Theme</option>
-                    <option value="custom">Custom Colors</option>
-                  </select>
-                </div>
-
-                <!-- Custom Colors (shown when custom is selected) -->
-                <div id="custom-colors-group" class="hidden">
-                  <div class="form-group">
-                    <label for="block-bg-color" class="form-label">Background Color</label>
-                    <div class="color-input-container">
-                      <div class="color-preview" id="block-bg-color-preview"></div>
-                      <input type="color" id="block-bg-color" class="form-input" value="#ffffff" />
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="block-text-color" class="form-label">Text Color</label>
-                    <div class="color-input-container">
-                      <div class="color-preview" id="block-text-color-preview"></div>
-                      <input type="color" id="block-text-color" class="form-input" value="#333333" />
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Spacing Options -->
-                <div class="form-group">
-                  <label for="block-padding" class="form-label">Section Padding</label>
-                  <select id="block-padding" class="form-select">
-                    <option value="normal">Normal (3rem)</option>
-                    <option value="large">Large (4rem)</option>
-                    <option value="small">Small (2rem)</option>
-                    <option value="none">None</option>
-                  </select>
-                </div>
-
-
                 <div class="form-group">
                   <label for="block-bg-color" class="form-label">Background Color</label>
                   <input type="color" id="block-bg-color" class="form-input" value="#ffffff" />
@@ -1217,7 +1096,6 @@
                   <label for="block-text-color" class="form-label">Text Color</label>
                   <input type="color" id="block-text-color" class="form-input" value="#333333" />
                 </div>
-
                 <div class="form-group">
                   <label class="form-label">Image</label>
                   <div class="image-upload-container">
@@ -1231,27 +1109,12 @@
                     </div>
                   </div>
                 </div>
-
-
-                <!-- Animation Options -->
-                <div class="form-group">
-                  <label for="block-animation" class="form-label">Animation</label>
-                  <select id="block-animation" class="form-select">
-                    <option value="none">None</option>
-                    <option value="fade-in">Fade In</option>
-                    <option value="slide-up">Slide Up</option>
-                    <option value="slide-left">Slide Left</option>
-                    <option value="slide-right">Slide Right</option>
-                  </select>
-                </div>
-
                 <button type="submit" class="button primary-button" id="add-block-button">
                   <span id="add-block-loading" class="loading hidden"></span>
                   <span id="add-block-button-text">Add Block</span>
                 </button>
               </form>
             </div>
-
           </div>
         </section>
 
@@ -2297,7 +2160,7 @@
                   type="text"
                   id="section-order"
                   class="form-input"
-                  placeholder="blocks-container,services-section,products-section,gallery-section,blog-section,faq-section,info-section,contact-section,custom-code-section"
+                  placeholder="services-section,products-section,gallery-section,blog-section,faq-section,info-section,contact-section,custom-code-section"
                 />
               </div>
               <button
@@ -2574,7 +2437,6 @@
       let editBlogPostIndex = null;
 
 
-
       // Blocks Elements - NEW
       const blocksList = document.getElementById("blocks-list");
       const addBlockForm = document.getElementById("add-block-form");
@@ -2590,7 +2452,6 @@
       const addBlockLoading = document.getElementById("add-block-loading");
       const addBlockButtonText = document.getElementById("add-block-button-text");
       let editBlockIndex = null;
-
 
 
       // Links Elements
@@ -3897,7 +3758,6 @@
       }
 
 
-
       function editBlock(index) {
         const block = profileData.blocks[index];
         blockTitleInput.value = block.title;
@@ -3938,7 +3798,6 @@
           showNotification("error", "Error", "Failed to delete block");
         }
       }
-
 
 
       // Delete gallery image
@@ -5021,42 +4880,6 @@
         contactInfoCardColorPreview.style.backgroundColor =
           contactInfoCardColorInput.value;
       });
-
-      // Blocks form interactions
-      const blockColorScheme = document.getElementById("block-color-scheme");
-      const customColorsGroup = document.getElementById("custom-colors-group");
-      const blockLayout = document.getElementById("block-layout");
-      const imagePositionGroup = document.getElementById("image-position-group");
-
-      blockColorScheme.addEventListener("change", function () {
-        if (this.value === "custom") {
-          customColorsGroup.classList.remove("hidden");
-        } else {
-          customColorsGroup.classList.add("hidden");
-        }
-      });
-
-      blockLayout.addEventListener("change", function () {
-        if (this.value === "two-column") {
-          imagePositionGroup.classList.remove("hidden");
-        } else {
-          imagePositionGroup.classList.add("hidden");
-        }
-      });
-
-      document
-        .getElementById("block-bg-color")
-        .addEventListener("input", function () {
-          document.getElementById("block-bg-color-preview").style.backgroundColor =
-            this.value;
-        });
-
-      document
-        .getElementById("block-text-color")
-        .addEventListener("input", function () {
-          document.getElementById("block-text-color-preview").style.backgroundColor =
-            this.value;
-        });
 
       // Auto-fill current date for blog posts
       const today = new Date();
