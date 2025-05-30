@@ -655,6 +655,24 @@
         font-size: 0.85rem;
       }
 
+      /* Block Section Styles - NEW */
+      .block-section {
+        padding: 3rem 0;
+        margin-bottom: 3rem;
+      }
+
+      .block-section .two-column {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .block-section .block-image {
+        max-width: 100%;
+        border-radius: 0.5rem;
+      }
+
       .gallery-section {
         padding: 3rem 0;
         background-color: var(--gallery-bg);
@@ -1531,6 +1549,10 @@
           <!-- Social links will be loaded dynamically -->
         </div>
 
+        <div id="blocks-container">
+          <!-- Blocks will be inserted dynamically -->
+        </div>
+
         <section id="services-section" class="services-section">
           <div class="container">
             <h2 class="section-title" id="services-title">My Services</h2>
@@ -2220,6 +2242,9 @@
           // Load blog posts
           loadBlogPosts(data.blogPosts || []);
 
+          // Load blocks
+          loadBlocks(data.blocks || []);
+
           // Load contact information
           loadContactInfo(data.contactInfo || []);
 
@@ -2595,6 +2620,53 @@
             document.body.style.overflow = "auto";
           }
         });
+
+      // Load blocks - NEW
+      function loadBlocks(blocks) {
+        const container = document.getElementById("blocks-container");
+        container.innerHTML = "";
+
+        blocks.forEach((block, index) => {
+          const section = document.createElement("section");
+          section.id = `block-section-${index}`;
+          section.className = "block-section";
+          section.style.backgroundColor = block.bgColor || "#ffffff";
+          section.style.color = block.textColor || "#333333";
+
+          const inner = document.createElement("div");
+          inner.className = "container two-column";
+
+          const left = document.createElement("div");
+          left.className = "block-left";
+          const h2 = document.createElement("h2");
+          h2.textContent = block.title;
+          const p = document.createElement("p");
+          p.textContent = block.text;
+          left.appendChild(h2);
+          left.appendChild(p);
+          if (block.buttonText) {
+            const btn = document.createElement("a");
+            btn.href = block.buttonUrl || "#";
+            btn.className = "button primary-button";
+            btn.textContent = block.buttonText;
+            left.appendChild(btn);
+          }
+
+          const right = document.createElement("div");
+          right.className = "block-right";
+          const img = document.createElement("img");
+          img.src = block.image || "/placeholder.svg";
+          img.alt = block.title;
+          img.className = "block-image";
+          right.appendChild(img);
+
+          inner.appendChild(left);
+          inner.appendChild(right);
+          section.appendChild(inner);
+
+          container.appendChild(section);
+        });
+      }
 
       // Load contact information
       function loadContactInfo(contactInfo) {
