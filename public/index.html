@@ -1934,9 +1934,10 @@
           <!-- Social links will be loaded dynamically -->
         </div>
 
-        <div id="blocks-container">
+        <!-- FIXED: Changed to section with proper ID -->
+        <section id="blocks-container" class="blocks-section">
           <!-- Blocks will be inserted dynamically -->
-        </div>
+        </section>
 
         <section id="services-section" class="services-section">
           <div class="container">
@@ -2729,6 +2730,15 @@
               .classList.remove("hidden");
           }
 
+          // Hide blocks section if no blocks
+          if (!data.blocks || data.blocks.length === 0) {
+            document.getElementById("blocks-container").classList.add("hidden");
+          } else {
+            document
+              .getElementById("blocks-container")
+              .classList.remove("hidden");
+          }
+
           // Mark data as loaded
           isDataLoaded = true;
 
@@ -3009,15 +3019,18 @@
       // Enhanced Professional loadBlocks function
       function loadBlocks(blocks) {
         const container = document.getElementById("blocks-container");
-        container.innerHTML = "";
+
+        // Clear existing content
+        while (container.firstChild) {
+          container.removeChild(container.firstChild);
+        }
 
         if (!blocks || blocks.length === 0) {
           return;
         }
 
         blocks.forEach((block, index) => {
-          const section = document.createElement("section");
-          section.id = `block-section-${index}`;
+          const section = document.createElement("div");
           section.className = "block-section";
 
           // Apply padding
@@ -3034,16 +3047,16 @@
           }
 
           // Create container
-          const container = document.createElement("div");
-          container.className = "block-container";
+          const blockContainer = document.createElement("div");
+          blockContainer.className = "block-container";
 
           // Create layout based on type
           const layout = block.layout || "two-column";
           const layoutElement = createBlockLayout(block, layout);
 
-          container.appendChild(layoutElement);
-          section.appendChild(container);
-          document.getElementById("blocks-container").appendChild(section);
+          blockContainer.appendChild(layoutElement);
+          section.appendChild(blockContainer);
+          container.appendChild(section);
         });
 
         // Initialize animations
@@ -3316,13 +3329,20 @@
         const linksContainer = container.querySelector(".links-container");
         const footer = container.querySelector(".footer");
 
-        // Store all sections in a map for easy access
-        const sectionsMap = new Map();
-        const allSections = container.querySelectorAll("section");
+        // Store all sections and divs in a map for easy access
+        const elementsMap = new Map();
 
+        // Get all sections
+        const allSections = container.querySelectorAll("section");
         allSections.forEach((section) => {
-          sectionsMap.set(section.id, section);
+          elementsMap.set(section.id, section);
         });
+
+        // Also get the blocks-container div (which is now a section)
+        const blocksContainer = container.querySelector("#blocks-container");
+        if (blocksContainer) {
+          elementsMap.set("blocks-container", blocksContainer);
+        }
 
         // Clear container but keep header and links
         container.innerHTML = "";
@@ -3340,16 +3360,16 @@
 
         // Add sections in the specified order
         sectionOrder.forEach((id) => {
-          const section = sectionsMap.get(id);
-          if (section) {
-            container.appendChild(section);
+          const element = elementsMap.get(id);
+          if (element) {
+            container.appendChild(element);
           }
         });
 
         // Add any remaining sections that weren't in the order
-        sectionsMap.forEach((section, id) => {
-          if (!sectionOrder.includes(id) && !container.contains(section)) {
-            container.appendChild(section);
+        elementsMap.forEach((element, id) => {
+          if (!sectionOrder.includes(id) && !container.contains(element)) {
+            container.appendChild(element);
           }
         });
 
